@@ -4,15 +4,13 @@ public class BirdScript : MonoBehaviour
 {
     public Rigidbody2D myRigidbody;
     public float flapStrength;
-    public LogicScript logic;
+    public UnityEngine.Events.UnityEvent onDeath;
     public bool birdIsAlive = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         gameObject.name = "Bob Birdington";
-        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
-
     }
 
     // Update is called once per frame
@@ -26,7 +24,7 @@ public class BirdScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        logic.gameOver();
+        onDeath?.Invoke();
         birdIsAlive = false;
     }
 }
